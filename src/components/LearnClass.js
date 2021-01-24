@@ -12,7 +12,8 @@ class LearnClass extends React.Component {
             shouldAlert: true,
             language: "english",
         };
-        // Tried this.vars just for checking weather this works like normal class that can have any variables in class
+        // Tried this.vars just for checking weather this works like normal class
+        // that can have any variables in class
         this.vars = { count: 0 };
         if (this.state.language === "hindi") {
             if (this.state.shouldAlert)
@@ -79,13 +80,17 @@ class LearnClass extends React.Component {
             }
     }
     componentDidMount() {
-        // this 1000 milliseconds timeout is only for make it look like it showed after render otherwise it shows alert before actually fully rendering i.e rendering takes.
+        // this 1000 milliseconds timeout is only for make it look like it showed
+        // after render otherwise it shows alert before actually fully rendering
+        // i.e rendering takes.
         setTimeout(() => {
             this.alertLanguage({
                 hindi:
-                    "2.1. componentDidMount(): me sirf 1st render ke vad chalta hu, or ha timer lga diya h thik 120 seconds vad hoga kuch change",
+                    "2.1. componentDidMount(): me sirf 1st render ke vad chalta hu, " +
+                    "or ha timer lga diya h thik 120 seconds vad hoga kuch change",
                 english:
-                    "2.1. componentDidMount(): i just run after 1st render, i started a timer, after 120 seconds it will change something",
+                    "2.1. componentDidMount(): i just run after 1st render, " +
+                    "i started a timer, after 120 seconds it will change something",
             });
         }, 1000);
 
@@ -105,9 +110,11 @@ class LearnClass extends React.Component {
         if (this.vars.count < 10) {
             this.alertLanguage({
                 hindi:
-                    "3. shouldComponentUpdate(): hmari mrji k render krna h ja nhi. or ham sirf render krna start krge pehele count ko 10 tak le k jayo",
+                    "3. shouldComponentUpdate(): hmari mrji k render krna h ja nhi. " +
+                    "or ham sirf render krna start krge pehele count ko 10 tak le k jayo",
                 english:
-                    "3. shouldComponentUpdate(): it's my choice whether to run render() or not. if u want to start render() then make count more than 10.",
+                    "3. shouldComponentUpdate(): it's my choice whether to run render() " +
+                    "or not. if u want to start render() then make count more than 10.",
             });
             returnValue = false;
         } else {
@@ -121,9 +128,11 @@ class LearnClass extends React.Component {
         }
         this.alertLanguage({
             hindi:
-                "3. shouldComponentUpdate(): Notice kiya me aabi v hindi bol rha hu... aise hi hota h. hm purani values se run hote h 1 var. krege new values use mgr agli var se",
+                "3. shouldComponentUpdate(): Notice kiya me aabi v hindi bol rha hu... " +
+                "aise hi hota h. hm purani values se run hote h 1 var. krege new values use mgr agli var se",
             english:
-                "3. shouldComponentUpdate(): did you Notice that i still speaking english ... i run with old values for 1st time. i will use new values from next call",
+                "3. shouldComponentUpdate(): did you Notice that i still speaking english ... " +
+                "i run with old values for 1st time. i will use new values from next call",
         });
         return returnValue;
     }
@@ -140,9 +149,11 @@ class LearnClass extends React.Component {
     render() {
         this.alertLanguage({
             hindi:
-                "2. render(): Ham krte h render jo dikhana h is Component pe. or hmare pehele getDerivedStateFromProps() call huya. ",
+                "2. render(): Ham krte h render jo dikhana h is Component pe. " +
+                "or hmare pehele getDerivedStateFromProps() call huya. ",
             english:
-                "2. render(): i handle what to show on webpage at the place of this component. just before me getDerivedStateFromProps() was called ",
+                "2. render(): i handle what to show on webpage at the place of this component. " +
+                "just before me getDerivedStateFromProps() was called ",
         });
 
         // doing some setups before returning, we can also do that in return as i did with other things
