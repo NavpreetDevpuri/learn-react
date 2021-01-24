@@ -23,9 +23,9 @@ class LearnClass extends React.Component {
         this.setState({ color: "Changed color: " + this.vars.count });
     };
     shoot(a) {
-        if (this.state.language === "hindi")
+        if (this.state.language === "hindi") {
             if (this.state.shouldAlert) alert(a);
-            else alert(a);
+        } else if (this.state.shouldAlert) alert(a);
     }
     myChangeHandler = (event) => {
         let nam = event.target.name;
@@ -211,7 +211,7 @@ class LearnClass extends React.Component {
                 <br></br>
                 <button
                     type="button"
-                    onClick={this.shoot("argument of unbinded vala")}
+                    onClick={this.shoot("argument of unbinded function")}
                 >
                     {this.state.language === "hindi"
                         ? "shoot jo binded nhi h mtlv unbinded h"
@@ -220,7 +220,10 @@ class LearnClass extends React.Component {
                 <br></br>
                 <button
                     type="button"
-                    onClick={this.shoot.bind(this, "argument of binded vala")}
+                    onClick={this.shoot.bind(
+                        this,
+                        "argument of binded function"
+                    )}
                 >
                     {this.state.language === "hindi"
                         ? "Shoot jo binded h"
