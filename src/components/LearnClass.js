@@ -28,7 +28,7 @@ class LearnClass extends React.Component {
         } else if (this.state.shouldAlert) alert(a);
     }
     myChangeHandler = (event) => {
-        let nam = event.target.name;
+        let name = event.target.name;
         let val = event.target.value;
         let err = "";
         if (val !== "" && !Number(val)) {
@@ -37,9 +37,7 @@ class LearnClass extends React.Component {
             else err = <strong>Your age must be a number</strong>;
         }
         this.setState({ errormessage: err });
-        this.setState({ [nam]: val });
-        this.setState({ username: nam });
-        this.setState({ age: val });
+        this.setState({ [name]: val });
     };
     mySubmitHandler = (event) => {
         event.preventDefault();
@@ -235,7 +233,11 @@ class LearnClass extends React.Component {
                 <form onSubmit={this.mySubmitHandler}>
                     {header}
                     <p>Enter your name:</p>
-                    <input type="text" onChange={this.myChangeHandler} />
+                    <input
+                        type="text"
+                        name="username"
+                        onChange={this.myChangeHandler}
+                    />
                     <p>Enter your age:</p>
                     <input
                         type="text"
