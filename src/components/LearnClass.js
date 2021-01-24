@@ -211,7 +211,9 @@ class LearnClass extends React.Component {
                 <br></br>
                 <button
                     type="button"
-                    onClick={this.shoot("argument of unbinded function")}
+                    onClick={this.shoot(
+                        "argument of unbinded function. I will run after every render() even if i am in 'onClick'"
+                    )}
                 >
                     {this.state.language === "hindi"
                         ? "shoot jo binded nhi h mtlv unbinded h"
@@ -222,7 +224,7 @@ class LearnClass extends React.Component {
                     type="button"
                     onClick={this.shoot.bind(
                         this,
-                        "argument of binded function"
+                        "argument of binded function. I will only run actually onClick()"
                     )}
                 >
                     {this.state.language === "hindi"
