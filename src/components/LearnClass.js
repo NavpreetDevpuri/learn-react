@@ -12,6 +12,7 @@ class LearnClass extends React.Component {
             shouldAlert: true,
             language: "english",
         };
+        // Tried this.vars just for checking weather this works like normal class that can have any variables in class
         this.vars = { count: 0 };
         if (this.state.language === "hindi") {
             if (this.state.shouldAlert)
@@ -21,6 +22,9 @@ class LearnClass extends React.Component {
     }
     changeColor = () => {
         this.setState({ color: "Changed color: " + this.vars.count });
+    };
+    alertLanguage = (msg) => {
+        if (this.state.shouldAlert) alert(msg[this.state.language]);
     };
     shoot(a) {
         if (this.state.language === "hindi") {
@@ -41,14 +45,13 @@ class LearnClass extends React.Component {
     };
     mySubmitHandler = (event) => {
         event.preventDefault();
-        if (this.state.language === "hindi")
-            alert("Kardiya na submit " + this.state.username);
-        else alert("You are submitting " + this.state.username);
+        alert("You are submitting " + this.state.username);
         let age = this.state.age;
         if (!Number(age)) {
-            if (this.state.language === "hindi")
-                alert("Oye age number chahiye mereko");
-            else alert("Your age must be a number");
+            this.alertLanguage({
+                hindi: "Oye age number chahiye mereko",
+                english: "Your age must be a number",
+            });
         }
     };
     static getDerivedStateFromProps(props, state) {
@@ -76,15 +79,16 @@ class LearnClass extends React.Component {
             }
     }
     componentDidMount() {
-        if (this.state.shouldAlert)
-            if (this.state.language === "hindi")
-                alert(
-                    "2.1. componentDidMount(): me sirf 1st render ke vad chalta hu, or ha timer lga diya h thik 120 seconds vad hoga kuch change"
-                );
-            else
-                alert(
-                    "2.1. componentDidMount(): i just run after 1st render, i started a timer, after 120 seconds it will change something"
-                );
+        // this 1000 milliseconds timeout is only for make it look like it showed after render otherwise it shows alert before actually fully rendering i.e rendering takes.
+        setTimeout(() => {
+            this.alertLanguage({
+                hindi:
+                    "2.1. componentDidMount(): me sirf 1st render ke vad chalta hu, or ha timer lga diya h thik 120 seconds vad hoga kuch change",
+                english:
+                    "2.1. componentDidMount(): i just run after 1st render, i started a timer, after 120 seconds it will change something",
+            });
+        }, 1000);
+
         setTimeout(() => {
             this.vars.count = 369;
             if (this.state.language === "hindi")
@@ -97,61 +101,51 @@ class LearnClass extends React.Component {
         }, 120000);
     }
     shouldComponentUpdate() {
+        var returnValue;
         if (this.vars.count < 10) {
-            if (this.state.shouldAlert)
-                if (this.state.language === "hindi") {
-                    alert(
-                        "3. shouldComponentUpdate(): hmari mrji k render krna h ja nhi. or ham sirf render krna start krge pehele count ko 10 tak le k jayo"
-                    );
-                    alert(
-                        "3. shouldComponentUpdate(): Notice kiya me aabi v hindi bol rha hu... aise hi hota h. hm purani values se run hote h 1 var. krege new values use mgr agli var se"
-                    );
-                } else {
-                    alert(
-                        "3. shouldComponentUpdate(): it's my choice whether to run render() or not. if u want to start render() then make count more than 10."
-                    );
-                    alert(
-                        "3. shouldComponentUpdate(): did you Notice that i still speaking english ... i run whith old values for 1st time. i will use new values from next call"
-                    );
-                }
-            return false;
+            this.alertLanguage({
+                hindi:
+                    "3. shouldComponentUpdate(): hmari mrji k render krna h ja nhi. or ham sirf render krna start krge pehele count ko 10 tak le k jayo",
+                english:
+                    "3. shouldComponentUpdate(): it's my choice whether to run render() or not. if u want to start render() then make count more than 10.",
+            });
+            returnValue = false;
         } else {
-            if (this.state.shouldAlert)
-                if (this.state.language === "hindi") {
-                    alert(
-                        "3. shouldComponentUpdate(): kar diya count ko 10 se upr. shabash"
-                    );
-                } else {
-                    alert(
-                        "3. shouldComponentUpdate(): u made count more than 10. good"
-                    );
-                }
-            return true;
+            this.alertLanguage({
+                hindi:
+                    "3. shouldComponentUpdate(): kar diya count ko 10 se upr. shabash",
+                english:
+                    "3. shouldComponentUpdate(): u made count more than 10. good",
+            });
+            returnValue = true;
         }
+        this.alertLanguage({
+            hindi:
+                "3. shouldComponentUpdate(): Notice kiya me aabi v hindi bol rha hu... aise hi hota h. hm purani values se run hote h 1 var. krege new values use mgr agli var se",
+            english:
+                "3. shouldComponentUpdate(): did you Notice that i still speaking english ... i run with old values for 1st time. i will use new values from next call",
+        });
+        return returnValue;
     }
     componentDidUpdate() {
         setTimeout(() => {
-            if (this.state.shouldAlert)
-                if (this.state.language === "hindi")
-                    alert(
-                        "4. componentDidUpdate(): ham call hoge har render ke vad."
-                    );
-                else
-                    alert(
-                        "4. componentDidUpdate(): i will call after every render()"
-                    );
+            this.alertLanguage({
+                hindi:
+                    "4. componentDidUpdate(): ham call hoge har render ke vad.",
+                english:
+                    "4. componentDidUpdate(): i will call after every render()",
+            });
         }, 1000);
     }
     render() {
-        if (this.state.shouldAlert)
-            if (this.state.language === "hindi")
-                alert(
-                    "2. render(): Ham krte h render jo dikhana h is Component pe. or hmare pehele getDerivedStateFromProps() call huya. "
-                );
-            else
-                alert(
-                    "2. render(): i handle what to show on webpage at the place of this component. just before me getDerivedStateFromProps() was called "
-                );
+        this.alertLanguage({
+            hindi:
+                "2. render(): Ham krte h render jo dikhana h is Component pe. or hmare pehele getDerivedStateFromProps() call huya. ",
+            english:
+                "2. render(): i handle what to show on webpage at the place of this component. just before me getDerivedStateFromProps() was called ",
+        });
+
+        // doing some setups before returning, we can also do that in return as i did with other things
         let header = "";
         if (this.state.username) {
             header = (
@@ -173,6 +167,7 @@ class LearnClass extends React.Component {
                 {!this.state.isDeleted && (
                     <DelMe language={this.state.language} />
                 )}
+
                 {!this.state.isDeleted && (
                     <button
                         type="button"
@@ -187,6 +182,7 @@ class LearnClass extends React.Component {
                         {this.vars.count}
                     </button>
                 )}
+
                 <h2>this.state.color</h2>
                 <p> = {this.state.color}</p>
                 <h2>this.props.color</h2>
@@ -217,7 +213,9 @@ class LearnClass extends React.Component {
                         ? "shoot jo binded nhi h mtlv unbinded h"
                         : "shoot, which is not binded means its unbinded"}
                 </button>
+
                 <br></br>
+
                 <button
                     type="button"
                     onClick={this.shoot.bind(
@@ -229,7 +227,9 @@ class LearnClass extends React.Component {
                         ? "Shoot jo binded h"
                         : "shoot, which is binded"}
                 </button>
+
                 <br></br>
+
                 <form onSubmit={this.mySubmitHandler}>
                     {header}
                     <p>Enter your name:</p>
@@ -246,6 +246,7 @@ class LearnClass extends React.Component {
                     />
                     {this.state.errormessage}
                 </form>
+
                 <button
                     type="button"
                     onClick={() => {
@@ -280,7 +281,7 @@ class DelMe extends React.Component {
         return (
             <div>
                 <h1>
-                    {this.props.language === "hindi"
+                    {this.props.lagnuage === "hindi"
                         ? "Himat h to delete krk dekhle!"
                         : "Delete me! If you can."}
                 </h1>
